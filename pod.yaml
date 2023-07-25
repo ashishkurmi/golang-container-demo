@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dind
+spec:
+  containers:
+    - name: docker-in-docker
+      image: docker:dind
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - name: dockersock
+          mountPath: /var/run
+      tty: true
+      stdin: true
+  volumes:
+    - name: dockersock
+      emptyDir: {}
